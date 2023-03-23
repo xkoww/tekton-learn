@@ -1,0 +1,8 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: git-binding
+spec: 
+  params:
+  - name: eventTypes
+    value: $(body.events)

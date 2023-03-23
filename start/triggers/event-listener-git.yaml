@@ -1,0 +1,20 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: git-listener
+spec:
+  serviceAccountName: tekton-robot
+  triggers:
+    - name: hello-trigger 
+      interceptors:
+        - ref:
+            name: "github"
+            kind: ClusterInterceptor
+            apiVersion: triggers.tekton.dev
+          params:
+          - name: "eventTypes"
+            value: ["pull_request"]
+      bindings:
+      - ref: git-binding
+      template:
+        ref: hello-template

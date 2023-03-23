@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: git-clone-run
+spec:
+  params:
+    - name: url
+      value: "https://github.com/xkoww/tekton-learn.git"
+  taskRef:
+    name: git-clone
+  workspaces:                  
+  - name: output 
+    volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce # access mode may affect how you can use this volume in parallel tasks
+          resources:
+            requests:
+              storage: 1Gi
+
